@@ -147,10 +147,10 @@ class Jsonrpc(object):
         else:
             return onSuccess(result)#give json object back
 
-    def addUris(self, uri, options=None):
+    def addUri(self, uris, options=None):
         def success(response):
             return response
-        return self._post(Jsonrpc.ADDURI_METHOD, [[uri,], options], success)
+        return self._post(Jsonrpc.ADDURI_METHOD, [[uris,], options], success)
 
     def tellStatus(self,gid,keys=None):
         def success(response):
