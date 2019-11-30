@@ -14,7 +14,7 @@ class Xmlrpc(object):
         self.host = host
         self.port = port
         self.serverUrl = "http://{host}:{port}/rpc".format(**locals())
-	self.s = xmlrpclib.ServerProxy(self.serverUrl)
+	self.s = xmlrpclib.ServerProxy(self.serverUrl,allow_none=True)
 	self.aria2 = self.s.aria2
 
     def getOption(self,gid):
@@ -58,7 +58,7 @@ class Xmlrpc(object):
 
     def tellStopped(self,offset=0,num=0,keys=None):
 	try:
-	   return self.aria2.tellStopped(offet,num,keys)
+	   return self.aria2.tellStopped(offset,num,keys)
         except xmlrpclib.Fault as ex:
            print "<Fault %s: %s>" % (ex.faultCode, ex.faultString)
            return None
@@ -97,6 +97,13 @@ class Xmlrpc(object):
 	except xmlrpclib.Fault as ex:
 	   print "<Fault %s: %s>" % (ex.faultCode, ex.faultString)
 	   return None
+
+    def getUris(self,gid):
+	try:
+	   return self.aria2.getUris(gid)
+        except xmlrpclib.Fault as ex:
+           print "<Fault %s: %s>" % (ex.faultCode, ex.faultString)
+           return None
 
 	 
 class Jsonrpc(object):
