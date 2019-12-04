@@ -44,6 +44,6 @@ if( int(resp["numStopped"]) > 0):
     num = int(resp["numStopped"])
     print num 
     print "numStopped"
-    resp2 = rpc.tellStopped(offset,num,["files","gid"])
-    print resp2[0]["files"][0]["uris"]
+    resp2 = rpc.tellStopped(offset,num)
+    print resp2
 

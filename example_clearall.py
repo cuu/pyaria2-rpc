@@ -10,6 +10,7 @@ if( int(resp["numActive"]) > 0 ):
     print resp2
     for i in resp2:
         rpc.remove(i["gid"])
+        rpc.removeDownloadResult(i["gid"])
     	
 
 if( int(resp["numWaiting"]) > 0):
@@ -19,6 +20,7 @@ if( int(resp["numWaiting"]) > 0):
     print resp2
     for i in resp2:
        rpc.remove(i["gid"])
+       rpc.removeDownloadResult(i["gid"])
 
 if( int(resp["numStopped"]) > 0):
     offset = 0
