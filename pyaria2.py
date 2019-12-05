@@ -169,73 +169,46 @@ class Wsrpc(object):
 
         return p
 
-    def _post(self, action, params, onSuccess, onFail=None):
-        if onFail is None:
-            onFail = Jsonrpc._defaultErrorHandle
-	print params
+    def _post(self, action, params):
+	#print params
         paramsObject = self._genParams(action, params)
-        print paramsObject 
+        #print paramsObject 
         data=json.dumps(paramsObject)
         return data
 
     def addUri(self, uris, options=None):
-        def success(response):
-            return response["result"]
         if isinstance(uris, basestring):
-            return self._post(Jsonrpc.ADDURI_METHOD, [[uris,], options], success)
+            return self._post(Wsrpc.ADDURI_METHOD, [[uris,], options])
         else:
-            return self._post(Jsonrpc.ADDURI_METHOD, [uris, options], success)
+            return self._post(Wsrpc.ADDURI_METHOD, [uris, options])
 
     def tellStatus(self,gid,keys=None):
-        def success(response):
-            return response
-        return self._post(Jsonrpc.TELLSTATUS_METHOD,[gid,keys],success)
+        return self._post(Wsrpc.TELLSTATUS_METHOD,[gid,keys])
 
     def tellActive(self,keys=None):
-        def success(response):
-            return response
-        return self._post(Jsonrpc.TELLACTIVE_METHOD,[keys],success)
+        return self._post(Wsrpc.TELLACTIVE_METHOD,[keys])
 
     def tellWaiting(self,offset=0,num=0,keys=None):
-        def success(response):
-            return response
-        return self._post(Jsonrpc.TELLWAITING_METHOD,[offset,num,keys],success)
+        return self._post(Wsrpc.TELLWAITING_METHOD,[offset,num,keys])
 
     def tellStopped(self,offset=0,num=0,keys=None):
-        def success(response):
-            return response
-        return self._post(Jsonrpc.TELLSTOPPED_METHOD,[offset,num,keys],success)
+        return self._post(Wsrpc.TELLSTOPPED_METHOD,[offset,num,keys])
 
     def remove(self,gid):
-        def success(response):
-            return response
-        return self._post(Jsonrpc.REMOVE_METHOD,[gid],success)
+        return self._post(Wsrpc.REMOVE_METHOD,[gid])
 
     def forceRemove(self,gid):
-        def success(response):
-            return response
-        return self._post(Jsonrpc.FORCEREMOVE_METHOD,[gid],success)
+        return self._post(Wsrpc.FORCEREMOVE_METHOD,[gid])
 
     def getGlobalStat(self):
-        def success(response):
-            return response
-        return self._post(Jsonrpc.GETGLOBALSTAT_METHOD,[],success)
+        return self._post(Wsrpc.GETGLOBALSTAT_METHOD,[])
 
     def purgeDownloadResult(self):
-        def success(response):
-            return response
-        return self._post(Jsonrpc.PURGEDOWNLOADRESULT_METHOD,[],success)
+        return self._post(Wsrpc.PURGEDOWNLOADRESULT_METHOD,[])
 
     def removeDownloadResult(self,gid):
-        def success(response):
-            return response
-        return self._post(Jsonrpc.REMOVEDOWNLOADRESULT_METHOD,[gid],success)
+        return self._post(Wsrpc.REMOVEDOWNLOADRESULT_METHOD,[gid])
 
-
-    @staticmethod
-    def _defaultErrorHandle(code, message):
-        print ("pyaria2 ERROR: {},{}".format(code, message))
-        return None
 class Jsonrpc(object):
 
     MUTI_METHOD = "system.multicall"
