@@ -134,6 +134,20 @@ class Xmlrpc(object):
           
         return None,False
 
+    def getPercent(self,url):
+        try:
+            resp = self.tellActive()
+            for i in resp:
+                uris = self.aria2.getUris(i["gid"])
+                for x in uris:
+                    if x["uri"] == url:
+                        pct = float(i["completedLength"]) / float( i["totalLength"])
+                        pct = pct * 100.0
+                        return int(pct)
+        except:
+            return None
+        return None
+
 class Wsrpc(object):
 
     MUTI_METHOD = "system.multicall"
